@@ -20,7 +20,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.post("/", (req, res) => {
+app.post("/category", (req, res) => {
+  try {
+    const body = req.body;
+    flameLinkApp.content
+      .set("visaCategory", body.name, body)
+      .then(() => console.log("Setting the category succeeded"));
+    res.json({ success: true });
+  } catch (e) {
+    console.log(e);
+    res.json({ success: false });
+  }
+});
+
+app.post("/summary", (req, res) => {
   try {
     const body = req.body;
     flameLinkApp.content
